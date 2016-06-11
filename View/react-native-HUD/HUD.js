@@ -72,8 +72,6 @@ export function hidenHUDLoading() {
         loadingView.destroy();
         loadingView = null;
     }
-
-    console.log('hidenHUDLoading');
 }
 
 export function showHUDMessage(message: string) {

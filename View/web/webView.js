@@ -22,7 +22,7 @@ export default class Web extends Component {
 
     render() {
         return (
-            <View style={{flex: 1}}>
+            <View style={{flex: 1, backgroundColor: 'white'}}>
                 <NavigationBar
                     title={this.state.title}
                     onPressBackIcon={() => this._onPressBackBtn()}

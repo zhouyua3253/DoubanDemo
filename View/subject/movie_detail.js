@@ -5,14 +5,30 @@
 import NavigationBar from '../navigation_bar/navigation_bar';
 import {MOVIE_API} from '../../API/API';
 import Web from '../web/webView';
+import SubjectCelebrity from './subject_celebrity';
 
 export default class MovieDetail extends Component {
+
+    static propTypes = {
+        movieID: React.PropTypes.oneOfType([
+            React.PropTypes.string,
+            React.PropTypes.number
+        ]).isRequired
+    };
+
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            title: ''
+        }
+    }
 
     render() {
         return (
             <View style={styles.container}>
                 <NavigationBar
-                    title={this.props.movie.title}
+                    title={this.state.title}
                     onPressBackIcon={() => this._onPressBackBtn()}
                 />
 
@@ -32,16 +48,19 @@ export default class MovieDetail extends Component {
      */
 
     _onFetch(_, callback) {
-        const url = MOVIE_API.detail + this.props.movie.id;
+        const url = MOVIE_API.detail + this.props.movieID;
 
         service.get(url)
             .then(response => {
                 if(response.ok === false) {
+                    callback([]);
                     showHUDMessage(response.problem);
                 }
                 else {
                     const datas = Array(3).fill(response.data);
                     callback(datas);
+
+                    this.setState({title: response.data.title})
                 }
             })
     }
@@ -123,7 +142,7 @@ export default class MovieDetail extends Component {
                <TouchableOpacity
                    key={`${index}`}
                    style={{width: contentViewW, height: contentViewH}}
-                   onPress={() => this._onJumpToWeb(people.alt)}
+                   onPress={() => this._onJumpToCelebrity(people.id, people.name)}
                >
                    <Image style={{width: photoW, height: photoH}}
                         source={{uri: people.avatars.large}}/>
@@ -163,23 +182,28 @@ export default class MovieDetail extends Component {
         this.props.navigator && this.props.navigator.pop();
     }
 
-    _enableBack() {
-        log('返回上一个状态 不返回页面');
-        this.props.triggerAndroidBack(true)
-    }
-
     _onJumpToWeb(url) {
         this.props.navigator && this.props.navigator.push({
             component: Web,
-            name: 'Web',
             params: {url}
         })
+    }
+
+    _onJumpToCelebrity(celebrityID, name) {
+        this.props.navigator && this.props.navigator.push({
+            component: SubjectCelebrity,
+            params: {
+                celebrityID,
+                name
+            }
+        });
     }
 }
 
 const styles = Style({
     container: {
-        flex: 1
+        flex: 1,
+        backgroundColor: 'white'
     },
     listview: {
         flex: 1,

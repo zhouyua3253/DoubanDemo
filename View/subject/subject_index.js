@@ -103,7 +103,7 @@ export default class Subject extends Component {
         this.props.navigator && this.props.navigator.push({
             component: MovieDetail,
             params: {
-                movie: rowData
+                movieID: rowData.id
             }
         })
     }
@@ -132,7 +132,10 @@ const styles = Style({
         overflow: 'hidden',
         paddingTop: 20,
         flexDirection: 'row',
-        alignItems: 'flex-start'
+        alignItems: 'flex-start',
+        ios: {
+            paddingBottom: 20
+        }
     },
     movie_poster: {
         height: 80,
