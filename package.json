@@ -1,0 +1,21 @@
+{
+  "name": "DoubanDemo",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node node_modules/react-native/local-cli/cli.js start"
+  },
+  "dependencies": {
+    "apisauce": "^0.1.5",
+    "react": "15.0.2",
+    "react-native": "^0.26.3",
+    "react-native-code-push": "^1.12.0-beta",
+    "react-native-platform-stylesheet": "0.0.5",
+    "react-native-root-siblings": "^1.0.8",
+    "react-native-storage": "^0.1.0",
+    "react-native-tab-navigator": "^0.3.2"
+  },
+  "devDependencies": {
+    "reactotron": "^0.6.1"
+  }
+}

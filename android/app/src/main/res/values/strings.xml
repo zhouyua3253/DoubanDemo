@@ -1,0 +1,4 @@
+<resources>
+    <string moduleConfig="true" name="reactNativeCodePush_androidDeploymentKey">pp2HzSkyzSLmlX3e6loWQZXb3Wq_4ky-vHwQ-</string>
+    <string name="app_name">DoubanDemo</string>
+</resources>
