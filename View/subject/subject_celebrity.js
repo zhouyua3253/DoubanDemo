@@ -63,7 +63,7 @@ export default class SubjectCelebrity extends Component {
         const model = this.state.celebrity;
         const gender = `性别: ${model.gender}`;
         const bornPlace = `出生地: ${model.born_place}`;
-        const name_en = `英文名: ${model.aka_en.join('/')}`;
+        const name_en = `外文名: ${model.aka_en.join('/')}`;
         const other_name = model.aka.join('/');
 
         return (

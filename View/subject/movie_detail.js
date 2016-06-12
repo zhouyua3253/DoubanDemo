@@ -144,7 +144,7 @@ export default class MovieDetail extends Component {
                    style={{width: contentViewW, height: contentViewH}}
                    onPress={() => this._onJumpToCelebrity(people.id, people.name)}
                >
-                   <Image style={{width: photoW, height: photoH}}
+                   <Image style={{width: photoW, height: photoH, backgroundColor: '#ddd'}}
                         source={{uri: people.avatars.large}}/>
 
                    <Text

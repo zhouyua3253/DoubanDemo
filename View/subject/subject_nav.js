@@ -22,20 +22,39 @@ export default class SubjectNav extends Component {
         return (
             <Navigator
                 initialRoute={{name: title, component: Subject}}
-                configureScene={route => Navigator.SceneConfigs.FloatFromRight}
+                configureScene={route => this._configureScene(route)}
                 onWillFocus={navigator => this._onWillFocus(navigator)}
-                renderScene={(route, navigator) => this._renderNaviScreen(route, navigator)}
+                renderScene={(route, navigator) => this._renderScreen(route, navigator)}
             />
         );
     }
 
-    _renderNaviScreen(route, navigator) {
+    /**
+     * 页面push方式
+     */
+    _configureScene(route) {
+        //this.props.navigator.push({
+        //    component: Web,
+        //    isModal: true, // 需要下个页面模态方式出现
+        //    params: {url}
+        //})
+        if(route.isModal) {
+            // 150 -> 0 禁用手势返回
+            Navigator.SceneConfigs.FloatFromBottom.gestures.pop.edgeHitWidth = 0;
+            return Navigator.SceneConfigs.FloatFromBottom;
+        }
+
+        return Navigator.SceneConfigs.FloatFromRight;
+    }
+
+    _renderScreen(route, navigator) {
         this.navigator = navigator;
 
         let Component = route.component;
         return (
             <Component {...route.params}
                 navigator={navigator}
+                // 管理android返回键功能
                 triggerAndroidBack={this._triggerAndroidBack.bind(this)}
             />
         );

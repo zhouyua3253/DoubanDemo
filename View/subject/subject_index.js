@@ -5,6 +5,7 @@
 import NavigationBar from '../navigation_bar/navigation_bar';
 import {MOVIE_API} from '../../API/API';
 import MovieDetail from './movie_detail';
+import MovieSearch from './movie_search';
 
 /**
  * 书影音
@@ -113,7 +114,10 @@ export default class Subject extends Component {
      * @private
      */
     _onPressNavigationBtn() {
-        alert('点击了搜索按钮');
+        this.props.navigator && this.props.navigator.push({
+            component: MovieSearch,
+            isModal: true
+        })
     }
 }
 
@@ -133,9 +137,7 @@ const styles = Style({
         paddingTop: 20,
         flexDirection: 'row',
         alignItems: 'flex-start',
-        ios: {
-            paddingBottom: 20
-        }
+        paddingBottom: 20
     },
     movie_poster: {
         height: 80,

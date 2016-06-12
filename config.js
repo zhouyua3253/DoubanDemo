@@ -5,12 +5,6 @@
  * import './config'
  */
 
-/**
- * 网络请求
- */
-import service from './server/service';
-global.service = service;
-
 console.disableYellowBox = true;
 
 import React, {
@@ -107,7 +101,7 @@ global.GiftedListView = GiftedListView;
 import Reactotron from 'reactotron';
 const options = {
     name: 'DoubanDemo',
-    server: '192.168.43.120',
+    server: '192.168.197.12',
     enabled: __DEV__,
     userAgent: Platform.OS
 };
@@ -166,4 +160,11 @@ function localRemove(key: string) {
     })
 }
 global.localRemove = localRemove;
+
+
+/**
+ * 网络请求
+ */
+import service from './server/service';
+global.service = service;
 

@@ -2,6 +2,8 @@
  * Created by zhouyumin on 16/6/3.
  */
 
+import {AppState} from 'react-native';
+
 import CodePush from 'react-native-code-push';
 
 import TabNavigator from 'react-native-tab-navigator';
@@ -49,9 +51,20 @@ export default class Index extends Component {
     }
 
     componentDidMount() {
+        // 首次启动时检查时候有更新
         CodePush.sync({
             installMode: CodePush.InstallMode.ON_NEXT_RESUME
         });
+
+        AppState.addEventListener('change', this._handleAppStateChange.bind(this));
+    }
+
+    _handleAppStateChange(currentAppState) {
+        if(currentAppState === 'active') {
+            CodePush.sync({
+                installMode: CodePush.InstallMode.ON_NEXT_RESUME
+            });
+        }
     }
 
     render() {
