@@ -7,6 +7,8 @@ import {MOVIE_API} from '../../API/API';
 import MovieDetail from './movie_detail';
 import MovieSearch from './movie_search';
 
+import StarRating from '../3rd/StarRating';
+
 /**
  * 书影音
  */
@@ -58,8 +60,6 @@ export default class Subject extends Component {
         const actorNames = rowData.casts.map(cast => cast.name);
         const casts = actorNames.join('/');
 
-        const rate = rowData.rating.average + ' / ' + rowData.rating.max;
-
         return (
             <TouchableHighlight
                 activeOpacity={0.8}
@@ -82,9 +82,13 @@ export default class Subject extends Component {
                             {rowData.title}
                         </Text>
 
-                        <Text style={styles.movie_detail}>
-                            {rate}
-                        </Text>
+                        <View style={styles.rating_container}>
+                            <StarRating
+                                rating={rowData.rating.average / 2}
+                                starSize={12}
+                            />
+                            <Text style={styles.rating_text}>{rowData.rating.average}</Text>
+                        </View>
 
                         <Text style={styles.movie_detail}>
                             {`导演: ${directors}`}
@@ -160,5 +164,20 @@ const styles = Style({
         android: {
             paddingTop: 7
         }
+    },
+    rating_container: {
+        ios: {
+            marginTop: 10
+        },
+        android: {
+            marginVertical: 5
+        },
+        flexDirection: 'row',
+        alignItems: 'center'
+    },
+    rating_text: {
+        marginLeft: 5,
+        fontSize: 12,
+        color: 'rgb(155, 155, 155)'
     }
 });

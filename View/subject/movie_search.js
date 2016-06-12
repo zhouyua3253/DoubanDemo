@@ -98,6 +98,10 @@ export default class MovieSearch extends Component {
                     if(searchKey === this._searchKey) { // 返回的结果是搜索的内容
                         this._listView._setRows([]);
                         this._listView._postPaginate(data.subjects);
+
+                        if(data.subjects.length === 0) {
+                            showHUDMessage('搜索无结果');
+                        }
                     }
                 }
             })
