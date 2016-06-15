@@ -48,7 +48,10 @@ export default class NavigationBar extends Component {
         return (
             <View style={styles.container}>
                 <View style={styles.title_content}>
-                    <Text style={styles.title_font}>{this.props.title}</Text>
+                    <Text
+                        style={styles.title_font}
+                        numberOfLines={1}
+                    >{this.props.title}</Text>
                 </View>
                 <View style={styles.bottom_line}/>
                 {rightBtn}
@@ -74,7 +77,8 @@ const styles = Style({
         alignItems: 'center',
         ios: {
             marginTop: 20
-        }
+        },
+        marginHorizontal: 45
     },
     title_font: {
         fontSize: 17,

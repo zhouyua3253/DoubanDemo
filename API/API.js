@@ -8,3 +8,7 @@ export const MOVIE_API = {
     celebrity: '/v2/movie/celebrity/',   // 影人条目信息
     movieSearch: '/v2/movie/search?q='   // 电影条目搜索
 };
+
+export const Event = {
+    eventList: '/v2/event/list?loc=' // 获取活动列表  loc  day_type type
+};

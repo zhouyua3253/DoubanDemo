@@ -1,13 +1,12 @@
 /**
- * Created by zhou on 16/6/11.
+ * Created by zhouyumin on 16/6/14.
  */
 
+import Quanzi from './quanzi_index';
 
-import Subject from './subject_index';
+const title = '活动';
 
-const title = '电影';
-
-export default class SubjectNav extends Component {
+export default class EventNav extends Component {
 
     componentDidMount() {
         this.enableAndroidBack = true; // 默认开启安卓返回键功能
@@ -21,7 +20,7 @@ export default class SubjectNav extends Component {
     render() {
         return (
             <Navigator
-                initialRoute={{name: title, component: Subject}}
+                initialRoute={{name: title, component: Quanzi}}
                 configureScene={route => this._configureScene(route)}
                 onWillFocus={navigator => this._onWillFocus(navigator)}
                 renderScene={(route, navigator) => this._renderScreen(route, navigator)}

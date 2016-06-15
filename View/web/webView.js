@@ -15,6 +15,7 @@ export default class Web extends Component {
         super(props);
 
         this.canGoBack = false;
+        this._finishFirstLoad = false;
         this.state = {
             title: ''
         };
@@ -36,6 +37,7 @@ export default class Web extends Component {
                     startInLoadingState={true} // 强制显示加载进度指示菊花
                     javaScriptEnabled={true}   // 仅限Android平台。iOS平台JavaScript是默认开启的
                     onNavigationStateChange={e => this._onNavigationStateChange(e)} // 页面状态改变 回调
+                    onLoadEnd={() => this._onLoadEnd()}
                 />
             </View>
         );
@@ -63,8 +65,14 @@ export default class Web extends Component {
     _onNavigationStateChange(info) {
         this.canGoBack = info.canGoBack;
 
-        this.setState({
-            title: info.title
-        });
+        if(this._finishFirstLoad) { // 首次页面未完成加载时 获取的title时url地址 不是真正的title
+            this.setState({
+                title: info.title
+            });
+        }
+    }
+
+    _onLoadEnd() {
+        this._finishFirstLoad = true;
     }
 }

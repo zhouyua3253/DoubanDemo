@@ -45,7 +45,7 @@ const GiftedListView = React.createClass({
             headerView: null,
             sectionHeaderView: null,
             scrollEnabled: true,
-            withSections: false,
+            withSections: false, // 分区模式
             paginationFetchingView: null,
             paginationAllLoadedView: null,
             paginationWaitingView: null,
@@ -68,6 +68,7 @@ const GiftedListView = React.createClass({
     },
 
     propTypes: {
+        rowView: React.PropTypes.func,
         customStyles: React.PropTypes.object,
         initialListSize: React.PropTypes.number,
         firstLoader: React.PropTypes.bool,
@@ -299,6 +300,10 @@ const GiftedListView = React.createClass({
     },
 
     _renderPaginationView() {
+        if(this.props.pagination === false) {
+            return null;
+        }
+
         if ((this.state.paginationStatus === 'fetching' && this.props.pagination === true) || (this.state.paginationStatus === 'firstLoad' && this.props.firstLoader === true)) {
             return this.paginationFetchingView();
         } else if (this.state.paginationStatus === 'waiting' && this.props.pagination === true && (this.props.withSections === true || this._getRows().length > 0)) {

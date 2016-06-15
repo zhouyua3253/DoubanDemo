@@ -11,7 +11,7 @@ import TabNavigator from 'react-native-tab-navigator';
 import Home from './home/home_index';
 import Things from './things/things_index';
 import SubjectNav from './subject/subject_nav';
-import Quanzi from './quanzi/quanzi_index';
+import Event from './quanzi/quanzi_nav';
 import Profile from './profile/peofile_index';
 
 class TabbarModel {
@@ -28,8 +28,8 @@ class TabbarModel {
 const tabbarModels = [
     new TabbarModel(require('../icon/tab_home.png'), require('../icon/tab_home_active.png'), '首页', Home, false),
     new TabbarModel(require('../icon/tab_things.png'), require('../icon/tab_things_active.png'), '小事', Things, false),
-    new TabbarModel(require('../icon/tab_subject.png'), require('../icon/tab_subject_active.png'), '书影音', SubjectNav, true),
-    new TabbarModel(require('../icon/tab_quanzi.png'), require('../icon/tab_quanzi_active.png'), '圈子', Quanzi, false),
+    new TabbarModel(require('../icon/tab_subject.png'), require('../icon/tab_subject_active.png'), '电影', SubjectNav, true),
+    new TabbarModel(require('../icon/tab_quanzi.png'), require('../icon/tab_quanzi_active.png'), '活动', Event, false),
     new TabbarModel(require('../icon/tab_profile.png'), require('../icon/tab_profile_active.png'), '我的', Profile, false)
 ];
 

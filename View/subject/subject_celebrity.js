@@ -122,11 +122,14 @@ export default class SubjectCelebrity extends Component {
                         source={{uri: work.subject.images.large}}
                     />
 
-                    <Text style={[styles.other_movie_title, width]}
-                        numberOfLines={1}
-                    >
-                        {work.subject.title}
-                    </Text>
+                    <View style={{paddingTop: 6}}>
+                        <Text
+                            style={[styles.other_movie_title, {width}]}
+                            numberOfLines={1}
+                        >
+                            {work.subject.title}
+                        </Text>
+                    </View>
                 </TouchableOpacity>
             );
         });
@@ -140,7 +143,6 @@ export default class SubjectCelebrity extends Component {
                 <ScrollView
                     style={{height: btnHeight}}
                     horizontal={true}
-                    alwaysBounceHorizontal={true}
                     showsHorizontalScrollIndicator={false}
                 >
                     {posters}
@@ -231,7 +233,6 @@ const styles = Style({
     other_movie_title: {
         fontSize: 14,
         fontWeight: '500',
-        marginTop: 6,
         lineHeight: 16,
         textAlign: 'center'
     }

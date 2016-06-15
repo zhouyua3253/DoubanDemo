@@ -10,7 +10,7 @@ import MovieSearch from './movie_search';
 import StarRating from '../3rd/StarRating';
 
 /**
- * 书影音
+ * 电影
  */
 export default class Subject extends Component {
 
@@ -18,7 +18,7 @@ export default class Subject extends Component {
         return (
             <View style={styles.container}>
                 <NavigationBar
-                    title='书影音'
+                    title='电影'
                     rightIcon={require('../../icon/search_72.png')}
                     onPressRightIcon={() => this._onPressNavigationBtn()}
                 />
