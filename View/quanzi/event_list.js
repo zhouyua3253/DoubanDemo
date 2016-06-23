@@ -5,7 +5,7 @@
 const moment = require('moment');
 
 import {Event} from '../../API/API';
-import Web from '../web/webView';
+import EventDetail from './event_detail';
 import NavigationBar from '../navigation_bar/navigation_bar';
 
 export default class EventList extends Component {
@@ -70,56 +70,7 @@ export default class EventList extends Component {
     }
 
     _renderCell(rowData) {
-
-        let duration = '';
-        const begin_day = rowData.begin_time.substring(0, 10);
-        const end_day = rowData.end_time.substring(0, 10);
-        if(begin_day == end_day) { // 同一天
-            const begin_time = rowData.begin_time.substring(11, 16);
-            const end_time = rowData.end_time.substring(11, 16);
-
-            const dayofWeek = parseInt(moment(begin_day).format('E'));
-            let e = null;
-            switch (dayofWeek) {
-                case 1:
-                    e = '周一';
-                    break;
-
-                case 2:
-                    e = '周二';
-                    break;
-
-                case 3:
-                    e = '周三';
-                    break;
-
-                case 4:
-                    e = '周四';
-                    break;
-
-                case 5:
-                    e = '周五';
-                    break;
-
-                case 6:
-                    e = '周六';
-                    break;
-
-                case 7:
-                    e = '周日';
-                    break;
-
-                default:
-                    e = '周一';
-            }
-
-            duration = `${moment(begin_day).format('MM月DD日')} ${e} ${begin_time} ~ ${end_time}`;
-        }
-        else {
-            duration = `${moment(begin_day).format('MM月DD日')} ~ ${moment(end_day).format('MM月DD日')}`;
-        }
-
-        const info = `${rowData.participant_count}人/${duration}/${rowData.address}`;
+        const info = formateEventInfo(rowData);
         return (
             <TouchableHighlight
                 underlayColor='#ddd'
@@ -152,10 +103,67 @@ export default class EventList extends Component {
 
     _onSelectCell(event) {
         this.props.navigator && this.props.navigator.push({
-            component: Web,
-            params: {url: event.alt}
+            component: EventDetail,
+            params: {event}
         })
     }
+}
+
+/**
+ * 格式化活动信息
+ * @param event
+ * @returns {*}
+ */
+export function formateEventInfo(rowData): string {
+    let duration = '';
+    const begin_day = rowData.begin_time.substring(0, 10);
+    const end_day = rowData.end_time.substring(0, 10);
+    if(begin_day == end_day) { // 同一天
+        const begin_time = rowData.begin_time.substring(11, 16);
+        const end_time = rowData.end_time.substring(11, 16);
+
+        const dayofWeek = parseInt(moment(begin_day).format('E'));
+        let e = null;
+        switch (dayofWeek) {
+            case 1:
+                e = '周一';
+                break;
+
+            case 2:
+                e = '周二';
+                break;
+
+            case 3:
+                e = '周三';
+                break;
+
+            case 4:
+                e = '周四';
+                break;
+
+            case 5:
+                e = '周五';
+                break;
+
+            case 6:
+                e = '周六';
+                break;
+
+            case 7:
+                e = '周日';
+                break;
+
+            default:
+                e = '周一';
+        }
+
+        duration = `${moment(begin_day).format('MM月DD日')} ${e} ${begin_time} ~ ${end_time}`;
+    }
+    else {
+        duration = `${moment(begin_day).format('MM月DD日')} ~ ${moment(end_day).format('MM月DD日')}`;
+    }
+
+    return `${rowData.participant_count}人/${duration}/${rowData.address}`;
 }
 
 const styles = Style({

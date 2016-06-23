@@ -8,8 +8,8 @@ import {Event} from '../../API/API';
 
 import NavigationBar from '../navigation_bar/navigation_bar';
 import SelectCity from './quanzi_select_city';
-import Web from '../web/webView';
 import EventList from './event_list';
+import EventDetail from './event_detail';
 
 export default class Quanzi extends Component {
 
@@ -209,8 +209,8 @@ export default class Quanzi extends Component {
 
     _onPressEvent(event) {
         this.props.navigator && this.props.navigator.push({
-            component: Web,
-            params: {url: event.alt}
+            component: EventDetail,
+            params: {event}
         })
     }
 

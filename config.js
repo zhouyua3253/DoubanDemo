@@ -29,7 +29,8 @@ import {
     TextInput,
     Navigator,
     Linking,
-    InteractionManager
+    InteractionManager,
+    StatusBar
 } from 'react-native';
 
 global.React = React;
@@ -51,7 +52,9 @@ global.TextInput = TextInput;
 global.Navigator = Navigator;
 global.Linking = Linking;
 global.InteractionManager = InteractionManager;
+global.StatusBar = StatusBar;
 
+global.isAndroid = Platform.OS === 'android';
 
 /**
  * 屏幕宽高 像素密度

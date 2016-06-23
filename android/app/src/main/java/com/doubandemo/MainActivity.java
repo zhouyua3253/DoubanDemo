@@ -1,6 +1,8 @@
 package com.doubandemo;
 
 import com.facebook.react.ReactActivity;
+import com.rnfs.RNFSPackage;
+import com.projectseptember.RNGL.RNGLPackage;
 import com.microsoft.codepush.react.CodePush;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
@@ -41,6 +43,8 @@ public class MainActivity extends ReactActivity {
     protected List<ReactPackage> getPackages() {
         return Arrays.<ReactPackage>asList(
             new MainReactPackage(),
+            new RNFSPackage(),
+            new RNGLPackage(),
             new CodePush("pp2HzSkyzSLmlX3e6loWQZXb3Wq_4ky-vHwQ-", this, BuildConfig.DEBUG)
         );
     }

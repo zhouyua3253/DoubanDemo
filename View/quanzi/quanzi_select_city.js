@@ -94,7 +94,7 @@ export default class SelectCity extends Component {
         return (
             <TouchableHighlight
                 underlayColor='#ddd'
-                onPress={() => this._onSelectCell(city)}
+                onPress={() => this._onSelectCell(data)}
                 style={{overflow: 'hidden'}}
             >
                 <View style={styles.cell_container}>
