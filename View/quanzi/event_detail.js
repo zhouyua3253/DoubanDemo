@@ -7,7 +7,6 @@ import {Surface} from "gl-react-native";
 import ParallaxScrollView from 'react-native-parallax-scroll-view';
 import ParsedText from 'react-native-parsed-text';
 import Web from '../web/webView';
-
 import {formateEventInfo} from './event_list';
 
 const back_btn_res = require('../../icon/back_white.png');
@@ -21,19 +20,62 @@ export default class EventDetail extends Component {
         event: React.PropTypes.object.isRequired
     };
 
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            renderBlur: false,
+            base64: ''
+        };
+    }
+
+    componentDidMount() {
+        if (isAndroid) {
+            InteractionManager.runAfterInteractions(() => {
+                this.setState({renderBlur: true});
+
+                const captureConfig = {
+                    quality: 0.5,
+                    type: "jpg",
+                    format: "base64"
+                };
+                this._blurView.captureFrame(captureConfig).then(base64 => this.setState({base64}))
+            });
+        }
+    }
+
     render() {
-        const {event} = this.props;
+        let blur_content = null;
+        if (this.state.renderBlur && isAndroid) {
+            blur_content = (
+                <Surface
+                    preload={true}
+                    width={WIDTH}
+                    height={HeaderHeight}
+                    style={styles.blur_container}
+                    ref={view => this._blurView = view}
+                >
+                    <Blur factor={10} passes={20}>
+                        {this.props.event.image}
+                    </Blur>
+                </Surface>
+            );
+        }
 
         return (
-            <GiftedListView
-                style={styles.container}
-                pagination={false}
-                refreshable={false}
-                firstLoader={false}
-                onFetch={(_, callback) => this._fetchEvents(_, callback)}
-                rowView={(rowData, sectionID, rowID) => this._renderRowView(rowData, sectionID, rowID)}
-                renderScrollComponent={props => this._parallaxScrollView(props)}
-            />
+            <View style={styles.container}>
+                <GiftedListView
+                    style={styles.container}
+                    pagination={false}
+                    refreshable={false}
+                    firstLoader={false}
+                    onFetch={(_, callback) => this._fetchEvents(_, callback)}
+                    rowView={(rowData, sectionID, rowID) => this._renderRowView(rowData, sectionID, rowID)}
+                    renderScrollComponent={props => this._parallaxScrollView(props)}
+                />
+
+                {blur_content}
+            </View>
         );
     }
 
@@ -58,18 +100,15 @@ export default class EventDetail extends Component {
                 );
 
                 return (
-                    <View>
-                        <Surface preload={true} width={WIDTH} height={HeaderHeight}>
-                            <Blur factor={10} passes={20}>
-                                {rowData.image}
-                            </Blur>
-                        </Surface>
-
+                    <View style={styles.headerBg}>
+                        <Image
+                            source={{uri: this.state.base64}}
+                            style={styles.headerBg}
+                        />
                         <Image
                             source={{uri: rowData.image_lmobile}}
                             style={styles.header_image}
                         />
-
                         {backBtn}
                     </View>
                 );
@@ -141,10 +180,12 @@ export default class EventDetail extends Component {
     _renderHeaderBackground() {
         const {event} = this.props;
         return (
-            <Image
-                source={{uri: event.image, width: WIDTH, height: HeaderHeight}}
-                blurRadius={25}
-            />
+            <View style={styles.headerBg}>
+                <Image
+                    source={{uri: event.image, width: WIDTH, height: HeaderHeight}}
+                    blurRadius={25}
+                />
+            </View>
         );
     }
 
@@ -255,5 +296,15 @@ const styles = Style({
     btn_icon: {
         width: 24,
         height: 24
+    },
+    blur_container: {
+        position: 'absolute',
+        top: HEIGHT,
+        width: WIDTH
+    },
+    headerBg: {
+        width: WIDTH,
+        height: HeaderHeight,
+        backgroundColor: '#ddd'
     }
 });

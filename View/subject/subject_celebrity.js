@@ -165,7 +165,6 @@ export default class SubjectCelebrity extends Component {
                     showHUDMessage(response.problem);
                 }
                 else {
-                    console.log(response.data);
                     hidenHUDLoading();
                     this.setState({celebrity: response.data})
                 }
