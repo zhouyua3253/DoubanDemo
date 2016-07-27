@@ -163,15 +163,15 @@ const styles = Style({
     hot_city_cell: {
         height: 50 * 5 + 10,
         backgroundColor: 'rgb(241, 241, 241)',
-        justifyContent: 'flex-end',
-        flexWrap: 'wrap'
+        flexWrap: 'wrap',
+        flexDirection: 'row'
     },
     hot_city_btn: {
         height: 35,
         borderRadius: 3,
         borderColor:'gray',
         borderWidth: ONE_PIXEL,
-        marginBottom: 15,
+        marginTop: 15,
         marginLeft: 15,
         backgroundColor: 'white',
         justifyContent: 'center',

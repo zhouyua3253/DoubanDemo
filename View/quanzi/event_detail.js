@@ -106,7 +106,7 @@ export default class EventDetail extends Component {
                             style={styles.headerBg}
                         />
                         <Image
-                            source={{uri: rowData.image_lmobile}}
+                            source={{uri: rowData.image}}
                             style={styles.header_image}
                         />
                         {backBtn}
@@ -168,6 +168,9 @@ export default class EventDetail extends Component {
                 parallaxHeaderHeight={HeaderHeight}
                 renderBackground={() => this._renderHeaderBackground()}
                 renderForeground={() => this._renderHeaderForeground()}
+                stickyHeaderHeight={20}
+                backgroundColor='white'
+                renderStickyHeader={() => <View style={{height: 20, backgroundColor: 'white'}}/>}
             >
 
             </ParallaxScrollView>
@@ -212,8 +215,9 @@ export default class EventDetail extends Component {
                 style={styles.header_foreground}
             >
                 <Image
-                    source={{uri: event.image_lmobile}}
+                    source={{uri: event.image}}
                     style={styles.header_image}
+                    resizeMode={Image.resizeMode.stretch}
                 />
 
                 {backBtn}
@@ -230,6 +234,24 @@ export default class EventDetail extends Component {
 
     _onPressBackIcon() {
         this.props.navigator && this.props.navigator.pop();
+    }
+}
+
+class EventInfoItem extends Component {
+
+    static propTypes = {
+        // 左侧图标resource
+        icon: React.PropTypes.number.isRequired,
+        title: React.PropTypes.string.isRequired,
+        content: React.PropTypes.string.isRequired
+    };
+
+    render() {
+        return (
+            <View style={{height: 60, alignItems: 'center'}}>
+
+            </View>
+        );
     }
 }
 
